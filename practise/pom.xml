@@ -1,18 +1,126 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>br.com.livreprogramacao</groupId>
-  <artifactId>practise</artifactId>
-  <packaging>jar</packaging>
-  <version>0.0.1</version>
-  <name>practise</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.livreprogramacao</groupId>
+    <artifactId>practise</artifactId>
+    <packaging>jar</packaging>
+    <version>0.0.1</version>
+    <name>practise</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <org.raml.jaxrs.resource.package>br.emp.minhacomunidade.api.rest.raml</org.raml.jaxrs.resource.package>
+        <version.org.raml.jaxrs>2.1.0</version.org.raml.jaxrs>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.raml.jaxrs</groupId>
+            <artifactId>jaxrs-code-generator</artifactId>
+            <version>${version.org.raml.jaxrs}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.raml.jaxrs</groupId>
+                <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
+                <version>${version.org.raml.jaxrs}</version>
+                <configuration>
+                    <!-- The ramlFile configuration parameter should point to your RAML file. -->
+                    <ramFile>${project.build.resources[0].directory}/minhacomunidade.emp.br.raml</ramFile>
+                    <!--
+                    The resourcePackage is the name of the resource package.
+                    This parameter is mandatory, and serves as the default value for the modelPackage and supportPackage parameters, should they be undefined.
+                    It determines the Java package in which the classes will appear.
+                    -->
+                    <resourcePackage>${org.raml.jaxrs.resource.package}</resourcePackage>
+                    <!--
+                    The modelPackage configuration parameter determines the package in which Java package the types will be generated.
+                    -->
+                    <modelPackage>${org.raml.jaxrs.resource.package}/model</modelPackage>
+                    <!--
+                    The supportPackage configuration parameter determines the package in which Java package the support
+                    classes (serializers, responses and such) will be generated.
+                    -->
+                    <supportPackage>${org.raml.jaxrs.resource.package}/support</supportPackage>
+                    <jsonMapper>jackson2</jsonMapper>
+                    <jsonMapperConfiguration>
+                        <includeHashcodeAndEquals>true</includeHashcodeAndEquals>
+                    </jsonMapperConfiguration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${endorsed.dir}</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>javax</groupId>
+                                    <artifactId>javaee-endorsed-api</artifactId>
+                                    <version>7.0</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
