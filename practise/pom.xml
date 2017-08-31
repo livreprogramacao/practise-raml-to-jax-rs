@@ -73,6 +73,12 @@
                         <includeHashcodeAndEquals>true</includeHashcodeAndEquals>
                     </jsonMapperConfiguration>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>raml</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
