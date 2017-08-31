@@ -29,4 +29,5 @@ pids
 node_modules/
 
 
-/java/minhacomunidade-api-impl/target/
+target/
+nb-configuration.xml
