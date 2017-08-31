@@ -17,16 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.raml.jaxrs</groupId>
-            <artifactId>jaxrs-code-generator</artifactId>
-            <version>${version.org.raml.jaxrs}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.0</version>
@@ -51,26 +41,39 @@
                 <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
                 <version>${version.org.raml.jaxrs}</version>
                 <configuration>
-                    <ramlFile>${project.build.resources[0].directory}/minhacomunidade.emp.br.raml</ramlFile>
+                    <ramlFile>${project.build.resources[0].directory}/types_user_defined.raml</ramlFile>
+                    <sourceDirectory>${project.build.resources[0].directory}</sourceDirectory>
                     <resourcePackage>${org.raml.jaxrs.resource.package}</resourcePackage>
                     <modelPackage>${org.raml.jaxrs.resource.package}/model</modelPackage>
                     <resourcePackage>${org.raml.jaxrs.resource.package}/types</resourcePackage>
                     <supportPackage>${org.raml.jaxrs.resource.package}/support</supportPackage>
+                    <removeOldOutput>true</removeOldOutput>
+                    <useJsr303Annotations>true</useJsr303Annotations>
                     <generateTypesWith>
                         <value>jackson</value>
                     </generateTypesWith>
                 </configuration>
-                <!--
                 <executions>
                     <execution>
-                        <id>raml-generate</id>
-                        <phase>generate-sources</phase>
+                        <id>raml-jaxrs</id>
                         <goals>
-                            <goal>descriptor</goal>
+                            <goal>generate-sources</goal>
                         </goals>
+                        <phase />
                     </execution>
                 </executions>
-                -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.raml.jaxrs</groupId>
+                        <artifactId>jaxrs-code-generator</artifactId>
+                        <version>${version.org.raml.jaxrs}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-core</artifactId>
+                        <version>2.9.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
