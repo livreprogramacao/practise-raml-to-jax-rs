@@ -51,34 +51,26 @@
                 <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
                 <version>${version.org.raml.jaxrs}</version>
                 <configuration>
-                    <!-- The ramlFile configuration parameter should point to your RAML file. -->
-                    <ramFile>${project.build.resources[0].directory}/minhacomunidade.emp.br.raml</ramFile>
-                    <!--
-                    The resourcePackage is the name of the resource package.
-                    This parameter is mandatory, and serves as the default value for the modelPackage and supportPackage parameters, should they be undefined.
-                    It determines the Java package in which the classes will appear.
-                    -->
+                    <ramlFile>${project.build.resources[0].directory}/minhacomunidade.emp.br.raml</ramlFile>
                     <resourcePackage>${org.raml.jaxrs.resource.package}</resourcePackage>
-                    <!--
-                    The modelPackage configuration parameter determines the package in which Java package the types will be generated.
-                    -->
                     <modelPackage>${org.raml.jaxrs.resource.package}/model</modelPackage>
-                    <!--
-                    The supportPackage configuration parameter determines the package in which Java package the support
-                    classes (serializers, responses and such) will be generated.
-                    -->
+                    <resourcePackage>${org.raml.jaxrs.resource.package}/types</resourcePackage>
                     <supportPackage>${org.raml.jaxrs.resource.package}/support</supportPackage>
-                    <jsonMapper>jackson2</jsonMapper>
-                    <jsonMapperConfiguration>
-                        <includeHashcodeAndEquals>true</includeHashcodeAndEquals>
-                    </jsonMapperConfiguration>
+                    <generateTypesWith>
+                        <value>jackson</value>
+                    </generateTypesWith>
                 </configuration>
+                <!--
                 <executions>
                     <execution>
-                        <id>raml</id>
+                        <id>raml-generate</id>
                         <phase>generate-sources</phase>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
                     </execution>
                 </executions>
+                -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,5 +120,27 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>https://repository.mulesoft.org/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshots Repository</name>
+            <url>https://repository.mulesoft.org/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>
