@@ -1,2 +1,2 @@
-# practise-raml-to-jax-rs
-A project maven to practise mulesoft-labs/raml-for-jax-rs.
+# raml-to-jaxrs-maven-plugin-practise
+A project maven to lean more about org.raml.jaxrs/raml-to-jaxrs-maven-plugin.
