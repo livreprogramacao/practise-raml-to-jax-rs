@@ -11,7 +11,7 @@
 
     <properties>
         <org.raml.jaxrs.resource.package>br.emp.minhacomunidade.api</org.raml.jaxrs.resource.package>
-        <version.org.raml.jaxrs>2.1.0</version.org.raml.jaxrs>
+        <version.org.raml.to.jaxrs>2.1.0</version.org.raml.to.jaxrs>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -28,15 +28,29 @@
             <version>4.8.2</version>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.6.0</version>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0.1</version>
         </dependency>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
+            <groupId>org.raml.jaxrs</groupId>
+            <artifactId>jaxrs-code-generator</artifactId>
+            <version>${version.org.raml.to.jaxrs}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-jetty-http</artifactId>
+            <version>2.24</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.24</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>2.6.3</version>
         </dependency>
     </dependencies>
 
@@ -45,14 +59,7 @@
             <plugin>
                 <groupId>org.raml.jaxrs</groupId>
                 <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
-                <version>${version.org.raml.jaxrs}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>${version.org.raml.to.jaxrs}</version>
                 <configuration>
                     <ramlFile>${project.build.resources[0].directory}/types_user_defined.raml</ramlFile>
                     <sourceDirectory>${project.build.resources[0].directory}</sourceDirectory>
@@ -66,18 +73,13 @@
                         <value>jackson</value>
                     </generateTypesWith>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.raml.jaxrs</groupId>
-                        <artifactId>jaxrs-code-generator</artifactId>
-                        <version>${version.org.raml.jaxrs}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.fasterxml.jackson.core</groupId>
-                        <artifactId>jackson-core</artifactId>
-                        <version>2.9.0</version>
-                    </dependency>
-                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
