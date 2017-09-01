@@ -42,30 +42,19 @@
 
     <build>
         <plugins>
-            <!--
-            <plugin>
-                <groupId>org.raml.jaxrs</groupId>
-                <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <configuration>
-                    <ramlFile>${project.build.resources[0].directory}/types_user_defined.raml</ramlFile>
-                    <resourcePackage>example.resources</resourcePackage>
-                    <modelPackage>example.model</modelPackage>
-                    <resourcePackage>example.types</resourcePackage>
-                    <supportPackage>example.support</supportPackage>
-                    <generateTypesWith>
-                        <value>jackson</value>
-                    </generateTypesWith>
-                </configuration>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.raml.jaxrs</groupId>
                 <artifactId>raml-to-jaxrs-maven-plugin</artifactId>
                 <version>${version.org.raml.jaxrs}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <ramlFile>${project.build.resources[0].directory}/minhacomunidade.emp.br.raml</ramlFile>
-                    <!--<ramlFile>${project.build.resources[0].directory}/types_user_defined.raml</ramlFile>-->
+                    <ramlFile>${project.build.resources[0].directory}/types_user_defined.raml</ramlFile>
                     <sourceDirectory>${project.build.resources[0].directory}</sourceDirectory>
                     <resourcePackage>${org.raml.jaxrs.resource.package}</resourcePackage>
                     <modelPackage>${org.raml.jaxrs.resource.package}.model</modelPackage>
@@ -77,15 +66,6 @@
                         <value>jackson</value>
                     </generateTypesWith>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>raml-jaxrs</id>
-                        <goals>
-                            <goal>generate-sources</goal>
-                        </goals>
-                        <phase />
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>org.raml.jaxrs</groupId>

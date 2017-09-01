@@ -1,0 +1,1 @@
+cp /tmp/raml-for-jax-rs/raml-to-jaxrs/examples/maven-examples/raml-defined-example/src/main/resources/*.raml /tmp/raml-to-jax-rs-practise/practise/src/main/resources
